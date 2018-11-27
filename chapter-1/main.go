@@ -36,6 +36,7 @@ func main() {
 
 	buf := bufio.NewReader(inputFile)
 	outFile, err := os.OpenFile("out-file", 1, os.ModeAppend)
+	bufw := bufio.NewWriter(outFile)
 	defer func() {
 		err := outFile.Close()
 		if err != nil {
@@ -93,7 +94,7 @@ func main() {
 			if 1<<uint64(k)&v > 0 {
 				num := uint64(i)*64 + uint64(64-k)
 				//log.Println(int(num))
-				_, err := outFile.WriteString(strconv.Itoa(int(num)) + "\n")
+				_, err := bufw.WriteString(strconv.Itoa(int(num)) + "\n")
 				if err != nil {
 					log.Println(err)
 				}
